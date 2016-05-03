@@ -1,3 +1,4 @@
 distro:
     - ubuntu-trusty
     - ubuntu-xenial
+    - debian-jessie

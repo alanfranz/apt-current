@@ -1,0 +1,50 @@
+#!/bin/bash -ex
+
+# zeroed, since just installed
+[ "$(cat /var/lib/apt-current/timestamp)" -eq 0 ]
+
+# this should trigger an update, since it's the first time we launch the tool
+apt-get-current install -y openssl
+CURRENT_TS="$(cat /var/lib/apt-current/timestamp)"
+# we assume the install procedure doesn't take more than then minutes
+[ "$(( $(date +%s) - ${CURRENT_TS} ))" -lt 600 ]
+
+# this one should NOT trigger an update
+apt-get-current -y install wget
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" == "${CURRENT_TS}" ]
+
+echo "MAXDELTA=1" > /etc/apt-current.conf
+# now it SHOULD trigger an update
+apt-get-current install -y curl
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -gt "${CURRENT_TS}" ]
+CURRENT_TS="${UPDATED_TS}"
+
+echo "MAXDELTA=10800" > /etc/apt-current.conf
+echo "deb http://www.a9f.eu/apt/docker-rpm-builder-v1/debian jessie main" > /etc/apt/sources.list.d/drb.list
+# now it SHOULD trigget an update because the source listing has changed
+apt-get-current install -y tcpdump
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -gt "${CURRENT_TS}" ]
+CURRENT_TS="${UPDATED_TS}"
+
+# now it SHOULD NOT trigger an update because nothing has changed
+apt-get-current remove -y tcpdump
+apt-get-current install -y tcpdump
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -eq "${CURRENT_TS}" ]
+
+# now it SHOULD trigger an update because config will change
+apt-get-current remove -y tcpdump
+rm -f /etc/apt/apt.conf.d/docker-gzip-indexes
+apt-get-current install -y tcpdump
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -gt "${CURRENT_TS}" ]
+CURRENT_TS="${UPDATED_TS}"
+
+# now it SHOULD NOT trigger an update because config is the same
+apt-get-current remove -y tcpdump
+apt-get-current install -y tcpdump
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -eq "${CURRENT_TS}" ]
