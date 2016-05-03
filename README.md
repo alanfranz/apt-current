@@ -1,6 +1,6 @@
 # apt-current: don't need an 'apt-get update' ever again! 
 
-While I like apt-based distros, there's something I really like about yum/dnf;
+While I like apt-based distros, there's something I really love about yum/dnf;
 when I issue a command like
 
 ```
@@ -14,8 +14,8 @@ expired.
 apt doesn't have this feature. An ```apt-get update``` is required before properly
 installing the latest version of a package, or before upgrading the system. 
 
-Periodic updaters and exist, and this is not a great issue for servers, workstations,
-or often-on laptops: but it can be for not-so-often used virtual machines, and,
+Periodic updaters do exist, and this is not a great issue for servers, workstations,
+or often-on laptops: but it can be tedious to manage for not-so-often used virtual machines, and,
 mostly, **for container systems like Docker**. I've seen many Dockerfiles resorting
 to lists deletion/forced updates every know an then, since an image can be very long-lived
 and the installations inside it are often automated.
@@ -90,4 +90,16 @@ deb http://www.a9f.eu/apt/apt-current-v1/ubuntu xenial main
 deb http://www.a9f.eu/apt/apt-current-v1/debian jessie main
 ```
 
+## TODO
+
+ * gracefully handle ```apt-get update``` errors
+ * add ```apt-current``` executable to wrap ```apt```
+
+## Contacts
+
+Feel free to open an issue for anything you'd like to discuss.
+
+## FAQ
+ * please note that at the first run a priming ```apt-get update``` will be launched, even though
+   you'd just have launched one.
 
