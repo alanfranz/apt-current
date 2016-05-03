@@ -4,8 +4,12 @@
 [ "$(cat /var/lib/apt-current/timestamp)" -eq 0 ]
 
 # this should trigger an update, since it's the first time we launch the tool
-apt-current install -y git
+apt-current install -y openssl
 CURRENT_TS="$(cat /var/lib/apt-current/timestamp)"
-[ "$(( $(date +%s) - ${CURRENT_TS} ))" -lt 10 ]
+# we assume the install procedure doesn't take more than then minutes
+[ "$(( $(date +%s) - ${CURRENT_TS} ))" -lt 600 ]
 
-
+# this one should NOT trigger an update
+apt-current install -y wget
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" == "${CURRENT_TS}" ]
