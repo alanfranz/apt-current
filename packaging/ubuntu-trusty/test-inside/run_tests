@@ -30,7 +30,7 @@ UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 CURRENT_TS="${UPDATED_TS}"
 
 # now it SHOULD NOT trigger an update because nothing has changed
-apt-current remove -y tcpdump
+apt-get-current remove -y tcpdump
 apt-get-current install -y tcpdump
 UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 [ "${UPDATED_TS}" -eq "${CURRENT_TS}" ]
