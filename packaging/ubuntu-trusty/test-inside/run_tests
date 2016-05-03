@@ -10,7 +10,7 @@ CURRENT_TS="$(cat /var/lib/apt-current/timestamp)"
 [ "$(( $(date +%s) - ${CURRENT_TS} ))" -lt 600 ]
 
 # this one should NOT trigger an update
-apt-current install -y wget
+apt-current -y install wget
 UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 [ "${UPDATED_TS}" == "${CURRENT_TS}" ]
 
