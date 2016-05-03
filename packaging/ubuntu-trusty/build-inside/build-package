@@ -14,4 +14,4 @@ echo "aaa" > /var/lib/apt-current/latest-sources
 echo "bbb" > /var/lib/apt-current/latest-config
 
 cd /out
-fpm -t deb -s dir -n apt-current --version ${VERSION} --iteration ${BUILD_NUMBER} --description "apt-current ${GIT_COMMIT}" --depends apt --depends coreutils --depends findutils --config-files /var/lib/apt-current/ -C / /etc/apt/apt.conf.d/80apt-current /usr/bin/apt-current /usr/bin/apt-current-update-hook /var/lib/apt-current/
+fpm -t deb -s dir -n apt-current --version ${VERSION} --iteration ${BUILD_NUMBER} --description "apt-current ${GIT_COMMIT}" --depends apt --depends coreutils --depends findutils --depends bash --config-files /var/lib/apt-current/ -C / /etc/apt/apt.conf.d/80apt-current /usr/bin/apt-current /usr/bin/apt-current-update-hook /var/lib/apt-current/
