@@ -51,6 +51,9 @@ or
 
 and let it do the dirty part of the job.
 
+Since it's a separate executable, if it's buggy you can always resort to the standard apt-get. No disruption of your
+user experience.
+
 # installation
 
 
