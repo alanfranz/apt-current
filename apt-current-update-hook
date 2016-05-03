@@ -1,0 +1,7 @@
+#!/bin/bash -e
+WORKDIR="/var/lib/apt-current/"
+SOURCES="/etc/apt/sources.list $(find /etc/apt/sources.list.d/ -name "*.list" -o -name "*.sources" | sort)"
+CURCONFHASH="$(echo $SOURCES | xargs cat | md5sum | cut -f 1 -d ' ')"
+echo "${CURCONFHASH}" > ${WORKDIR}/latest-sources
+apt-config dump | md5sum | cut -f 1 -d ' ' > ${WORKDIR}/latest-config
+date +%s > ${WORKDIR}/timestamp

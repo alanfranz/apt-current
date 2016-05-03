@@ -1,0 +1,11 @@
+#!/bin/bash -ex
+
+# zeroed, since just installed
+[ "$(cat /var/lib/apt-current/timestamp)" -eq 0 ]
+
+# this should trigger an update, since it's the first time we launch the tool
+apt-current install -y git
+CURRENT_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "$(( $(date +%s) - ${CURRENT_TS} ))" -lt 10 ]
+
+
