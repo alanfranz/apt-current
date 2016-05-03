@@ -9,7 +9,7 @@ while [ -n "$1" ]; do
     shift
 done	
 
-[ "${CMD}" == "install" ] || { apt "${CMDLINE}" ; exit $? ; }
+[ "${CMD}" == "install" ] || { apt-get "${CMDLINE}" ; exit $? ; }
 
 PERFORM_UPDATE=false
 # check whether our latest apt-get update is too old
@@ -19,13 +19,14 @@ CURDATE="$(date +%s)"
 PREVDATE=$(cat ${WORKDIR}/timestamp)
 [ "$(( ${CURDATE} - ${PREVDATE} ))" -gt "${MAXDELTA}" ] && PERFORM_UPDATE=true
 
-
+# check whether our sources.list have changed; in this situation, always update
 #SOURCES="/etc/apt/sources.list $(find /etc/apt/sources.list.d/ -name "*.list" -o -name "*.sources" | sort)"
-#CURSOURCES="$(echo $SOURCES | xargs cat | md5sum | cut -f 1 -d ' ')"
+#CURSOURCES_HASH="$(echo $SOURCES | xargs cat | md5sum | cut -f 1 -d ' ')"
+
 #CURCONFIG="$(apt-config dump | md5sum | cut -f 1 -d ' ')" 
 
 #echo "${CURCONFHASH}" > ${WORKDIR}/latest-sources
 
-${PERFORM_UPDATE} && apt -y update
-apt "${CMDLINE}"
+${PERFORM_UPDATE} && apt-get -y update
+apt-get "${CMDLINE}"
 exit $?
