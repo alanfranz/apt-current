@@ -1,12 +1,11 @@
 #!/bin/bash -e
 WORKDIR="/var/lib/apt-current/"
-CMDLINE=("$@")
 
 # find the command and see if it's one that may require an update check
 CMD=""
-while [ -n "$1" ]; do
-    [[ $1 == -* ]] || { CMD="$1"; break; }
-    shift
+for var in "$@"
+do
+    [[ $var == -* ]] || { CMD="$1"; break; }
 done	
 
 [ "${CMD}" == "install" ] || { apt-get "${CMDLINE}" ; exit $? ; }
@@ -28,5 +27,5 @@ PREVDATE=$(cat ${WORKDIR}/timestamp)
 #echo "${CURCONFHASH}" > ${WORKDIR}/latest-sources
 
 ${PERFORM_UPDATE} && apt-get -y update
-apt-get "${CMDLINE}"
+apt-get "$@"
 exit $?
