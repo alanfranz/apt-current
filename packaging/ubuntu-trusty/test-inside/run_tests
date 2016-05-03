@@ -13,3 +13,9 @@ CURRENT_TS="$(cat /var/lib/apt-current/timestamp)"
 apt-current install -y wget
 UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 [ "${UPDATED_TS}" == "${CURRENT_TS}" ]
+
+echo "MAXDELTA=1" > /etc/apt-current.conf
+# now it SHOULD trigger an update
+apt-current install -y curl
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -gt "${CURRENT_TS}" ]
