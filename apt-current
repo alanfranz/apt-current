@@ -23,9 +23,8 @@ SOURCES="/etc/apt/sources.list $(find /etc/apt/sources.list.d/ -name "*.list" -o
 CURSOURCES_HASH="$(echo $SOURCES | xargs cat | md5sum | cut -f 1 -d ' ')"
 [ "${CURSOURCES_HASH}" == "$(cat ${WORKDIR}/latest-sources)" ] || PERFORM_UPDATE=true
 
-#CURCONFIG="$(apt-config dump | md5sum | cut -f 1 -d ' ')" 
-
-#echo "${CURCONFHASH}" > ${WORKDIR}/latest-sources
+CURCONFIG="$(apt-config dump | md5sum | cut -f 1 -d ' ')" 
+[ "${CURCONFIG}" == "$(cat ${WORKDIR}/latest-config)" ] || PERFORM_UPDATE=true
 
 ${PERFORM_UPDATE} && apt-get -y update
 apt-get "$@"
