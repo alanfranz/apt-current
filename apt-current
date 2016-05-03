@@ -1,6 +1,6 @@
 #!/bin/bash -e
 WORKDIR="/var/lib/apt-current/"
-CMDLINE="$@"
+CMDLINE=("$@")
 
 # find the command and see if it's one that may require an update check
 CMD=""
