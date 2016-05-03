@@ -11,11 +11,10 @@ CURRENT_DISTRO=$(basename $(pwd))
 BUILD_IMAGE="apt-current-${CURRENT_DISTRO}-build"
 TEST_IMAGE="apt-current-${CURRENT_DISTRO}-test"
 
-if [ ! ${TESTONLY} ]; then
-	docker build --pull -t ${BUILD_IMAGE} build-image
-	rm -rf out
-	docker run --env-file ../env.list --env=BUILD_NUMBER=${BUILD_NUMBER:-0} --env=GIT_COMMIT=${GIT_COMMIT:-0} --rm -v $(pwd)/build-inside:/build-inside:ro -v ${SRC_DIR}:/source:ro -v $(pwd)/out:/out -w /build-inside ${BUILD_IMAGE} /build-inside/build-package
-fi
+${TESTONLY} || { docker build --pull -t ${BUILD_IMAGE} build-image;
+	rm -rf out;
+	docker run --env-file ../env.list --env=BUILD_NUMBER=${BUILD_NUMBER:-0} --env=GIT_COMMIT=${GIT_COMMIT:-0} --rm -v $(pwd)/build-inside:/build-inside:ro -v ${SRC_DIR}:/source:ro -v $(pwd)/out:/out -w /build-inside ${BUILD_IMAGE} /build-inside/build-package;
+    }
 
 # now we have the built package in out/. let's start the test phase.
 # we build the test image. It should be a very minimal image, in order to check that all the deps are properly set.
