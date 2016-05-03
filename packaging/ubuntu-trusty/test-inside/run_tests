@@ -29,7 +29,22 @@ UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 [ "${UPDATED_TS}" -gt "${CURRENT_TS}" ]
 CURRENT_TS="${UPDATED_TS}"
 
+# now it SHOULD NOT trigger an update because nothing has changed
+apt-current remove -y tcpdump
+apt-current install -y tcpdump
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -eq "${CURRENT_TS}" ]
+
 # now it SHOULD trigger an update because config will change
 apt-current remove -y tcpdump
 rm -f /etc/apt/apt.conf.d/docker-gzip-indexes
 apt-current install -y tcpdump
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -gt "${CURRENT_TS}" ]
+CURRENT_TS="${UPDATED_TS}"
+
+# now it SHOULD NOT trigger an update because config is the same
+apt-current remove -y tcpdump
+apt-current install -y tcpdump
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -eq "${CURRENT_TS}" ]
