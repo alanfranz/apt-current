@@ -46,8 +46,7 @@ to ```apt-get update``` again. Just
 
 or
 
-```apt-get-current -y install foobar
-```
+```apt-get-current -y install foobar```
 
 and let it do the dirty part of the job.
 
