@@ -19,3 +19,12 @@ echo "MAXDELTA=1" > /etc/apt-current.conf
 apt-current install -y curl
 UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 [ "${UPDATED_TS}" -gt "${CURRENT_TS}" ]
+CURRENT_TS="${UPDATED_TS}"
+
+echo "MAXDELTA=10800" > /etc/apt-current.conf
+echo "deb http://www.a9f.eu/apt/docker-rpm-builder-v1/ubuntu trusty main" > /etc/apt/sources.list.d/drb.list
+# now it SHOULD trigget an update because the source listing has changed
+apt-current install -y tcpdump
+UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
+[ "${UPDATED_TS}" -gt "${CURRENT_TS}" ]
+CURRENT_TS="${UPDATED_TS}"
