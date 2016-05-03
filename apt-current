@@ -8,7 +8,7 @@ do
     [[ $var == -* ]] || { CMD="$1"; break; }
 done	
 
-[ "${CMD}" == "install" ] || { apt-get "${CMDLINE}" ; exit $? ; }
+[ "${CMD}" == "install" ] || { apt-get "$@" ; exit $? ; }
 
 PERFORM_UPDATE=false
 # check whether our latest apt-get update is too old
