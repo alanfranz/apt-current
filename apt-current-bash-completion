@@ -1,0 +1,2 @@
+. /usr/share/bash-completion/completions/apt-get
+complete -F _apt_get apt-get-current
