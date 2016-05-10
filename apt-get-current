@@ -14,6 +14,11 @@ PERFORM_UPDATE=false
 # check whether our latest apt-get update is too old
 . /etc/apt-current.conf
 MAXDELTA=${MAXDELTA:-10800}
+
+# either they're true or we must force it to the false literal
+[ "true" == "${CLEANUP_DOWNLOADED_PACKAGES}" ] || { CLEANUP_DOWNLOADED_PACKAGES="false" ; }
+[ "true" == "${CLEANUP_DOWNLOADED_LISTS}" ] || { CLEANUP_DOWNLOADED_LISTS="false" ; }
+
 CURDATE="$(date +%s)"
 PREVDATE=$(cat ${WORKDIR}/timestamp)
 [ "$(( ${CURDATE} - ${PREVDATE} ))" -gt "${MAXDELTA}" ] && PERFORM_UPDATE=true
@@ -27,5 +32,10 @@ CURCONFIG="$(apt-config dump | md5sum | cut -f 1 -d ' ')"
 [ "${CURCONFIG}" == "$(cat ${WORKDIR}/latest-config)" ] || PERFORM_UPDATE=true
 
 ${PERFORM_UPDATE} && apt-get -y update
+
+set +e
 apt-get "$@"
-exit $?
+EXIT_CODE="$?"
+${CLEANUP_DOWNLOADED_PACKAGES} && apt-get -y clean
+${CLEANUP_DOWNLOADED_LISTS} && rm -f /var/lib/apt/lists/* /var/lib/apt/lists/partial/*
+exit ${EXIT_CODE}

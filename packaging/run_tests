@@ -22,7 +22,7 @@ UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 CURRENT_TS="${UPDATED_TS}"
 
 echo "MAXDELTA=10800" > /etc/apt-current.conf
-echo "deb http://www.a9f.eu/apt/docker-rpm-builder-v1/debian jessie main" > /etc/apt/sources.list.d/drb.list
+echo "deb http://www.a9f.eu/apt/docker-rpm-builder-v1/ubuntu trusty main" > /etc/apt/sources.list.d/drb.list
 # now it SHOULD trigget an update because the source listing has changed
 apt-get-current install -y tcpdump
 UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
@@ -48,3 +48,15 @@ apt-get-current remove -y tcpdump
 apt-get-current install -y tcpdump
 UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 [ "${UPDATED_TS}" -eq "${CURRENT_TS}" ]
+
+echo "CLEANUP_DOWNLOADED_PACKAGES=true" > /etc/apt-current.conf
+apt-get-current remove -y tcpdump
+apt-get-current install -y tcpdump
+CACHED_COUNT=$(($(find /var/cache/apt/archives/ -name "*.deb" | wc -l) + $(find /var/cache/apt/archives/partial/ -name "*.deb" | wc -l)))
+[ 0 -eq "${CACHED_COUNT}" ]
+
+echo -e "CLEANUP_DOWNLOADED_LISTS=true\nMAXDELTA=0\n" > /etc/apt-current.conf
+apt-get-current remove -y tcpdump
+apt-get-current install -y tcpdump
+CACHED_COUNT=$(($(find /var/lib/apt/lists/ | wc -l) + $(find /var/lib/apt/lists/partial/ | wc -l)))
+[ 3 -eq "${CACHED_COUNT}" ]

@@ -23,8 +23,6 @@ ${TESTONLY} || { docker build --pull -t ${BUILD_IMAGE} build-image;
 docker build --pull -t ${TEST_IMAGE} test-image
 
 rm -rf test-logs
-# we retain the env file, even though we might not need it. The out directory is actually readonly,
-# because we don't need to modify it. We create a test-logs directory which is writeable by the
-# container if we want to add test logs.
+cp -f ../run_tests test-inside
 docker run --env-file ../env.list --rm -v $(pwd)/test-inside:/test-inside:ro -v $(pwd)/out:/out:ro -v $(pwd)/test-logs:/test-logs -w /test-inside ${TEST_IMAGE} /test-inside/test || { echo "ERROR: the test phase failed." ; exit 1 ; }
 echo "Test phase succeeded."

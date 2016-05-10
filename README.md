@@ -53,6 +53,11 @@ and let it do the dirty part of the job.
 Since it's a separate executable, if it's buggy you can always resort to the standard apt-get. No disruption of your
 user experience.
 
+There're two additional, optional functions as well: apt-current can delete downloaded deb cache and apt lists after
+such modifications commands are run.
+
+Configuration can be found in ```/etc/apt-current.conf```
+
 # installation
 
 
