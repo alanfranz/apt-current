@@ -5,7 +5,7 @@ WORKDIR="/var/lib/apt-current/"
 CMD=""
 for var in "$@"
 do
-    [[ $var == -* ]] || { CMD="$1"; break; }
+    [[ $var == -* ]] || { CMD="$var"; break; }
 done	
 
 [[ "${CMD}" == "install" || "${CMD}" == "dist-upgrade" || "${CMD}" == "upgrade" ]] || { apt-get "$@" ; exit $? ; }
