@@ -16,5 +16,5 @@ echo "aaa" > /var/lib/apt-current/latest-sources
 echo "bbb" > /var/lib/apt-current/latest-config
 
 cd /out
-fpm -t deb -s dir -n apt-current --version ${VERSION} --iteration "${BUILD_NUMBER}~xenial" --description "apt-current ${GIT_COMMIT}" --depends apt --depends coreutils --depends findutils --depends bash --config-files /var/lib/apt-current/ --config-files /etc/apt-current.conf -C / /etc/apt/apt.conf.d/80apt-current /usr/bin/apt-get-current /usr/bin/apt-current-update-hook /var/lib/apt-current/ /etc/apt-current.conf /usr/share/bash-completion/completions/apt-get-current
+fpm -t deb -s dir -n apt-current --version ${VERSION} --iteration "${BUILD_NUMBER}-xenial" --description "apt-current ${GIT_COMMIT}" --depends apt --depends coreutils --depends findutils --depends bash --config-files /var/lib/apt-current/ --config-files /etc/apt-current.conf -C / /etc/apt/apt.conf.d/80apt-current /usr/bin/apt-get-current /usr/bin/apt-current-update-hook /var/lib/apt-current/ /etc/apt-current.conf /usr/share/bash-completion/completions/apt-get-current
 
