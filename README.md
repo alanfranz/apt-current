@@ -22,13 +22,14 @@ and the installations inside it are often automated.
 
 # what does apt-current do?
 
-It adds a new command, ```apt-get-current```, which is a wrapper for ```apt-get```. 
-I'll add ```apt-current``` as well later on.
+It adds two new commands, ```apt-get-current```, which is a wrapper for ```apt-get```. 
+and ```apt-current```, which wraps ```apt``
 
 ```apt-get-current``` can be used just like plain ```apt-get```, but it is got
-a small superpower. When performing **install**, **upgrade**, or **dist-upgrade**
-commands, it will automatically perform an ```apt-get -y update``` before launching
-those commands, if any of those three conditions occur:
+a small superpower. When performing **install**, **upgrade**, or **dist-upgrade** 
+(or **full-upgrade** for ```apt```)
+commands, it will automatically perform an ```apt-get -y update``` (or ```apt -y update```)
+ before launching those commands, if any of those three conditions occur:
 
  * too much time has passed since last ```apt-get update``` invocation. By default
    such time is three hours, but can be configured in ```/etc/apt-current.conf```
@@ -37,6 +38,7 @@ those commands, if any of those three conditions occur:
    invocation.
  * the configuration of ```apt-get```, as shown by ```apt-config dump```, has
    changed since last ```apt-get update``` invocation.
+ * there are no apt lists at all
 
 
 So, unless you need a package which has just been released, you'll never need
@@ -52,6 +54,8 @@ and let it do the dirty part of the job.
 
 Since it's a separate executable, if it's buggy you can always resort to the standard apt-get. No disruption of your
 user experience.
+
+# goodies
 
 There're two additional, optional functions as well: apt-current can delete downloaded deb cache and apt lists after
 such modifications commands are run.
@@ -98,7 +102,6 @@ deb http://www.a9f.eu/apt/apt-current-v1/debian jessie main
 ## TODO
 
  * gracefully handle ```apt-get update``` errors
- * add ```apt-current``` executable to wrap ```apt```
 
 ## Contacts
 
