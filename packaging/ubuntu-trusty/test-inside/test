@@ -8,4 +8,5 @@ trap 'chown -R --reference /test-inside/test /test-logs/' EXIT
 dpkg -i /out/*.deb || /bin/true
 apt-get -f -y install
 
-/test-inside/run_tests
+echo "running apt-current tests"
+/test-inside/run_tests $1

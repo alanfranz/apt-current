@@ -24,5 +24,8 @@ docker build --pull -t ${TEST_IMAGE} test-image
 
 rm -rf test-logs
 cp -f ../run_tests test-inside
-docker run --env-file ../env.list --rm -v $(pwd)/test-inside:/test-inside:ro -v $(pwd)/out:/out:ro -v $(pwd)/test-logs:/test-logs -w /test-inside ${TEST_IMAGE} /test-inside/test || { echo "ERROR: the test phase failed." ; exit 1 ; }
+echo "testing apt-get-current"
+docker run --env-file ../env.list --rm -v $(pwd)/test-inside:/test-inside:ro -v $(pwd)/out:/out:ro -v $(pwd)/test-logs:/test-logs -w /test-inside ${TEST_IMAGE} /test-inside/test apt-get-current || { echo "ERROR: the test phase failed." ; exit 1 ; }
+echo "testing apt-current"
+docker run --env-file ../env.list --rm -v $(pwd)/test-inside:/test-inside:ro -v $(pwd)/out:/out:ro -v $(pwd)/test-logs:/test-logs -w /test-inside ${TEST_IMAGE} /test-inside/test apt-current || { echo "ERROR: the test phase failed." ; exit 1 ; }
 echo "Test phase succeeded."
