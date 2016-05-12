@@ -34,7 +34,7 @@ CURCONFIG="$(apt-config dump | md5sum | cut -f 1 -d ' ')"
 [ "${CURCONFIG}" == "$(cat ${WORKDIR}/latest-config)" ] || PERFORM_UPDATE=true
 
 # downloaded lists are empty (maybe they have been cleaned), must update
-[ "$(find /var/lib/apt/lists/ -maxdepth 0 -type f -not -name lock | wc -l)" -eq 0 ] && PERFORM_UPDATE=true
+[ "$(find /var/lib/apt/lists/ -maxdepth 1 -type f -not -name lock | wc -l)" -eq 0 ] && PERFORM_UPDATE=true
 
 ${PERFORM_UPDATE} && apt-get -y update
 
