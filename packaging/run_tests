@@ -23,6 +23,7 @@ UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 CURRENT_TS="${UPDATED_TS}"
 
 echo "MAXDELTA=10800" > /etc/apt-current.conf
+curl https://www.franzoni.eu/keys/D1270819.txt | apt-key add -
 echo "deb http://www.a9f.eu/apt/docker-rpm-builder-v1/ubuntu trusty main" > /etc/apt/sources.list.d/drb.list
 # now it SHOULD trigget an update because the source listing has changed
 ${APT_CMD} install -y tcpdump
