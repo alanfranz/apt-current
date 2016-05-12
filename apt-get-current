@@ -19,6 +19,7 @@ MAXDELTA=${MAXDELTA:-10800}
 [ "true" == "${CLEANUP_DOWNLOADED_PACKAGES}" ] || { CLEANUP_DOWNLOADED_PACKAGES="false" ; }
 [ "true" == "${CLEANUP_DOWNLOADED_LISTS}" ] || { CLEANUP_DOWNLOADED_LISTS="false" ; }
 
+# if too much time has passed since last update, force it
 CURDATE="$(date +%s)"
 PREVDATE=$(cat ${WORKDIR}/timestamp)
 [ "$(( ${CURDATE} - ${PREVDATE} ))" -gt "${MAXDELTA}" ] && PERFORM_UPDATE=true
@@ -28,8 +29,12 @@ SOURCES="/etc/apt/sources.list $(find /etc/apt/sources.list.d/ -name "*.list" -o
 CURSOURCES_HASH="$(echo $SOURCES | xargs cat | md5sum | cut -f 1 -d ' ')"
 [ "${CURSOURCES_HASH}" == "$(cat ${WORKDIR}/latest-sources)" ] || PERFORM_UPDATE=true
 
+# apt configuration has changed; force update
 CURCONFIG="$(apt-config dump | md5sum | cut -f 1 -d ' ')" 
 [ "${CURCONFIG}" == "$(cat ${WORKDIR}/latest-config)" ] || PERFORM_UPDATE=true
+
+# downloaded lists are empty (maybe they have been cleaned), must update
+[ "$(find /var/lib/apt/lists/ -maxdepth 0 -type f -not -name lock | wc -l)" -eq 0 ] && PERFORM_UPDATE=true
 
 ${PERFORM_UPDATE} && apt-get -y update
 

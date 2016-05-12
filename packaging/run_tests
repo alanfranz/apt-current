@@ -60,3 +60,7 @@ apt-get-current remove -y tcpdump
 apt-get-current install -y tcpdump
 CACHED_COUNT=$(($(find /var/lib/apt/lists/ | wc -l) + $(find /var/lib/apt/lists/partial/ | wc -l)))
 [ 3 -eq "${CACHED_COUNT}" ]
+
+# now it should force the update since the dir is empty, and the install should succeed.
+apt-get-current remove -y tcpdump
+apt-get-current install -y tcpdump
