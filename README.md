@@ -55,12 +55,17 @@ and let it do the dirty part of the job.
 Since it's a separate executable, if it's buggy you can always resort to the standard apt-get. No disruption of your
 user experience.
 
+Also, by default, it will perform an ```apt-get clean``` or ```apt clean``` after modification commands, although
+such behaviour can be configured - see next section.
+
 # goodies
 
 There're two additional, optional functions as well: apt-current can delete downloaded deb cache and apt lists after
 such modifications commands are run.
 
-Configuration can be found in ```/etc/apt-current.conf```
+Configuration can be found in ```/etc/apt-current.conf``` - see the default at [apt-current.conf](apt-current.conf)
+
+also, a new ```clean-lists```command is enabled; it manually removes currently cached APT lists.
 
 # installation
 

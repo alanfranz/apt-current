@@ -51,11 +51,15 @@ ${APT_CMD} install -y tcpdump
 UPDATED_TS="$(cat /var/lib/apt-current/timestamp)"
 [ "${UPDATED_TS}" -eq "${CURRENT_TS}" ]
 
-echo "CLEANUP_DOWNLOADED_PACKAGES=true" > /etc/apt-current.conf
 ${APT_CMD} remove -y tcpdump
 ${APT_CMD} install -y tcpdump
 CACHED_COUNT=$(($(find /var/cache/apt/archives/ -name "*.deb" | wc -l) + $(find /var/cache/apt/archives/partial/ -name "*.deb" | wc -l)))
 [ 0 -eq "${CACHED_COUNT}" ]
+
+# try list cleaning
+${APT_CMD} clean-lists
+CACHED_COUNT=$(($(find /var/lib/apt/lists/ | wc -l) + $(find /var/lib/apt/lists/partial/ | wc -l)))
+[ 3 -eq "${CACHED_COUNT}" ]
 
 echo -e "CLEANUP_DOWNLOADED_LISTS=true\nMAXDELTA=0\n" > /etc/apt-current.conf
 ${APT_CMD} remove -y tcpdump

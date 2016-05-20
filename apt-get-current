@@ -1,6 +1,11 @@
 #!/bin/bash -e
 WORKDIR="/var/lib/apt-current/"
 
+function clean_lists {
+	rm -f /var/lib/apt/lists/* &>/dev/null || true
+        rm -f /var/lib/apt/lists/partial/* || true
+}
+
 # find the command and see if it's one that may require an update check
 CMD=""
 for var in "$@"
@@ -8,6 +13,7 @@ do
     [[ $var == -* ]] || { CMD="$var"; break; }
 done	
 
+[[ "${CMD}" == "clean-lists" ]] && { clean_lists ; exit 0; }
 [[ "${CMD}" == "install" || "${CMD}" == "dist-upgrade" || "${CMD}" == "upgrade" ]] || { apt-get "$@" ; exit $? ; }
 
 PERFORM_UPDATE=false
@@ -42,5 +48,5 @@ set +e
 apt-get "$@"
 EXIT_CODE="$?"
 ${CLEANUP_DOWNLOADED_PACKAGES} && apt-get -y clean
-${CLEANUP_DOWNLOADED_LISTS} && rm -f /var/lib/apt/lists/* /var/lib/apt/lists/partial/*
+${CLEANUP_DOWNLOADED_LISTS} && clean_lists 
 exit ${EXIT_CODE}
