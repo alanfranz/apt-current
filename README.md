@@ -62,6 +62,8 @@ such modifications commands are run.
 
 Configuration can be found in ```/etc/apt-current.conf``` - see the default at [apt-current.conf](apt-current.conf)
 
+also, a new ```clean-lists```command is enabled; it manually removes currently cached APT lists.
+
 # installation
 
 
