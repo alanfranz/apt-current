@@ -2,8 +2,8 @@
 WORKDIR="/var/lib/apt-current/"
 
 function clean_lists {
-	rm -f /var/lib/apt/lists/* &>/dev/null
-        rm -f /var/lib/apt/lists/partial/*
+	rm -f /var/lib/apt/lists/* &>/dev/null || true
+        rm -f /var/lib/apt/lists/partial/* || true
 }
 
 
