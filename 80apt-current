@@ -1,1 +1,1 @@
-APT::Update::Post-Invoke { "/usr/bin/apt-current-update-hook"; };
+APT::Update::Post-Invoke-Success { "/usr/bin/apt-current-update-hook"; };
