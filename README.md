@@ -23,7 +23,7 @@ and the installations inside it are often automated.
 # what does apt-current do?
 
 It adds two new commands, ```apt-get-current```, which is a wrapper for ```apt-get```. 
-and ```apt-current```, which wraps ```apt``
+and ```apt-current```, which wraps ```apt```
 
 ```apt-get-current``` can be used just like plain ```apt-get```, but it is got
 a small superpower. When performing **install**, **upgrade**, or **dist-upgrade** 
