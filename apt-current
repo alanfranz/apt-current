@@ -15,7 +15,7 @@ do
 done	
 
 [[ "${CMD}" == "clean-lists" ]] && { clean_lists ; exit 0; }
-[[ "${CMD}" == "install" || "${CMD}" == "full-upgrade" || "${CMD}" == "upgrade" ]] || { apt "$@" ; exit $? ; }
+[[ "${CMD}" == "install" || "${CMD}" == "full-upgrade" || "${CMD}" == "upgrade" || "${CMD}" == "dist-upgrade" ]] || { apt "$@" ; exit $? ; }
 
 PERFORM_UPDATE=false
 # check whether our latest apt-get update is too old
