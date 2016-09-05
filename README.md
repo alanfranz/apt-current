@@ -67,7 +67,9 @@ Configuration can be found in ```/etc/apt-current.conf``` - see the default at [
 
 also, a new ```clean-lists```command is enabled; it manually removes currently cached APT lists.
 
-# installation
+# Installation
+
+If you just want a quick glance, or you want to download the .deb to include somewhere, head straight to the [Releases](https://github.com/alanfranz/apt-current/releases) page.
 
 
 There're repositories for various Ubuntu and Debian versions. 64-bit only, currently. Open a ticket if you're
