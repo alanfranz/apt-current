@@ -29,7 +29,7 @@ and ```apt-current```, which wraps ```apt```
 a small superpower. When performing **install**, **upgrade**, or **dist-upgrade** 
 (or **full-upgrade** for ```apt```)
 commands, it will automatically perform an ```apt-get -y update``` (or ```apt -y update```)
- before launching those commands, if any of those three conditions occur:
+ before launching those commands, if any of the following conditions occurs:
 
  * too much time has passed since last ```apt-get update``` invocation. By default
    such time is three hours, but can be configured in ```/etc/apt-current.conf```
