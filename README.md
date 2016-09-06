@@ -1,5 +1,11 @@
 # apt-current: don't need an 'apt-get update' ever again! 
 
+Forget about ```apt-get update```: just run your ```apt-get-current install``` or ```apt-current full-upgrade``` commands,
+and let **apt-current** perform the update if your lists are outdated, or your sources or configuration has changed since
+the latest update was executed!
+
+# reasoning
+
 While I like apt-based distros, there's something I really love about yum/dnf;
 when I issue a command like
 
@@ -20,7 +26,7 @@ mostly, **for container systems like Docker**. I've seen many Dockerfiles resort
 to lists deletion/forced updates every know an then, since an image can be very long-lived
 and the installations inside it are often automated.
 
-# what does apt-current do?
+# what does apt-current do, precisely?
 
 It adds two new commands, ```apt-get-current```, which is a wrapper for ```apt-get```. 
 and ```apt-current```, which wraps ```apt```
