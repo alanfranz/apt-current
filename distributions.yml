@@ -1,4 +1,5 @@
 distro:
     - ubuntu-trusty
     - ubuntu-xenial
+    - ubuntu-yakkety
     - debian-jessie

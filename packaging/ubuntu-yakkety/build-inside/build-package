@@ -1,0 +1,22 @@
+#!/bin/bash -ex
+# we should always set proper ownership before exiting, otherwise
+# the created packages will have root:root ownership and we'll be unable
+# to delete them from our host.
+trap 'chown -R --reference /build-inside/build-package /out/' EXIT
+
+cd /source
+install -D 80apt-current /etc/apt/apt.conf.d/80apt-current
+install -D apt-get-current /usr/bin/apt-get-current
+install -D apt-current /usr/bin/apt-current
+install -D apt-current-update-hook /usr/bin/apt-current-update-hook
+install -D apt-current.conf /etc/apt-current.conf
+install -D apt-current-bash-completion /usr/share/bash-completion/completions/apt-get-current
+install -d /var/lib/apt-current
+echo "0" > /var/lib/apt-current/timestamp
+echo "aaa" > /var/lib/apt-current/latest-sources
+echo "bbb" > /var/lib/apt-current/latest-config
+
+cd /out
+fpm -t deb -s dir -n apt-current --version ${VERSION} --iteration "${BUILD_NUMBER}-yakkety" --description "apt-current ${GIT_COMMIT}" --depends apt --depends coreutils --depends findutils --depends bash --config-files /var/lib/apt-current/ \
+    --architecture all --config-files /etc/apt-current.conf -C / /etc/apt/apt.conf.d/80apt-current /usr/bin/apt-get-current /usr/bin/apt-current /usr/bin/apt-current-update-hook /var/lib/apt-current/ /etc/apt-current.conf /usr/share/bash-completion/completions/apt-get-current
+

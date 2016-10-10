@@ -1,5 +1,11 @@
 # apt-current: don't need an 'apt-get update' ever again! 
 
+Forget about ```apt-get update```: just run your ```apt-get-current install``` or ```apt-current full-upgrade``` commands,
+and let **apt-current** perform the update if your lists are outdated, or your sources or configuration has changed since
+the latest update was executed!
+
+# reasoning
+
 While I like apt-based distros, there's something I really love about yum/dnf;
 when I issue a command like
 
@@ -20,16 +26,16 @@ mostly, **for container systems like Docker**. I've seen many Dockerfiles resort
 to lists deletion/forced updates every know an then, since an image can be very long-lived
 and the installations inside it are often automated.
 
-# what does apt-current do?
+# what does apt-current do, precisely?
 
 It adds two new commands, ```apt-get-current```, which is a wrapper for ```apt-get```. 
-and ```apt-current```, which wraps ```apt``
+and ```apt-current```, which wraps ```apt```
 
 ```apt-get-current``` can be used just like plain ```apt-get```, but it is got
 a small superpower. When performing **install**, **upgrade**, or **dist-upgrade** 
 (or **full-upgrade** for ```apt```)
 commands, it will automatically perform an ```apt-get -y update``` (or ```apt -y update```)
- before launching those commands, if any of those three conditions occur:
+ before launching those commands, if any of the following conditions occurs:
 
  * too much time has passed since last ```apt-get update``` invocation. By default
    such time is three hours, but can be configured in ```/etc/apt-current.conf```
@@ -67,7 +73,9 @@ Configuration can be found in ```/etc/apt-current.conf``` - see the default at [
 
 also, a new ```clean-lists```command is enabled; it manually removes currently cached APT lists.
 
-# installation
+# Installation
+
+If you just want a quick glance, or you want to download the .deb to include somewhere, head straight to the [Releases](https://github.com/alanfranz/apt-current/releases) page.
 
 
 There're repositories for various Ubuntu and Debian versions. 64-bit only, currently. Open a ticket if you're
