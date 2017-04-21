@@ -94,6 +94,8 @@ apt-get update
 apt-get -y install apt-current
 ```
 
+**WARNING:** I'm planning to move to bintray for new releases. If you get a 404/410 in the next weeks, come back here and check out the new repos.
+
 ## Ubuntu Trusty
 
 ```
