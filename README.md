@@ -88,6 +88,7 @@ still using a 32-bit system and would like a packaged version.
 First, you should make sure that you've got Bintray's package signing key properly installed and configured for apt, and that apt supports https:
 
 ```sudo apt-get -y install apt-transport-https curl```
+
 ```curl https://www.franzoni.eu/keys/D401AB61.txt | sudo apt-key add -```
 
 Then, pick the repo for your distribution - see below - and save it as ```/etc/apt/sources.list.d/apt-current-v1.list```
