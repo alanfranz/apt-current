@@ -1,3 +1,7 @@
+# WARNING:
+
+**APT REPOSITORIES AREN'T CURRENTLY WORKING PROPERLY.** I'll migrate them to bintray soon. Use the [Releases](https://github.com/alanfranz/apt-current/releases) page to manually download the packages in the meantime.
+
 # apt-current: don't need an 'apt-get update' ever again! 
 
 Forget about ```apt-get update```: just run your ```apt-get-current install``` or ```apt-current full-upgrade``` commands,
