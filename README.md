@@ -1,6 +1,6 @@
 # WARNING:
 
-**APT REPOSITORIES AREN'T CURRENTLY WORKING PROPERLY.** I'll migrate them to bintray soon. Use the [Releases](https://github.com/alanfranz/apt-current/releases) page to manually download the packages in the meantime.
+**APT REPOSITORIES HAVE CHANGED!** Check the new URLs down there.
 
 # apt-current: don't need an 'apt-get update' ever again! 
 
@@ -85,37 +85,49 @@ If you just want a quick glance, or you want to download the .deb to include som
 There're repositories for various Ubuntu and Debian versions. 64-bit only, currently. Open a ticket if you're
 still using a 32-bit system and would like a packaged version.
 
-First, you should make sure that you've got my package signing key properly installed and configured for apt:
+First, you should make sure that you've got Bintray's package signing key properly installed and configured for apt, and that apt supports https:
 
-```curl https://www.franzoni.eu/keys/D1270819.txt | sudo apt-key add -```
+```sudo apt-get -y install apt-transport-https curl```
+```curl https://www.franzoni.eu/keys/D401AB61.txt | sudo apt-key add -```
 
 Then, pick the repo for your distribution - see below - and save it as ```/etc/apt/sources.list.d/apt-current-v1.list```
 
 Once the repo file is in place:
 
 ```
-apt-get update
-apt-get -y install apt-current
+sudo apt-get update
+sudo apt-get -y install apt-current
 ```
-
-**WARNING:** I'm planning to move to bintray for new releases. If you get a 404/410 in the next weeks, come back here and check out the new repos.
 
 ## Ubuntu Trusty
 
 ```
-deb http://www.a9f.eu/apt/apt-current-v1/ubuntu trusty main
+deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-trusty trusty main
 ```
 
 ## Ubuntu Xenial
 
 ```
-deb http://www.a9f.eu/apt/apt-current-v1/ubuntu xenial main
+deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-xenial xenial main
 ```
+
+## Ubuntu Yakkety
+
+```
+deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-yakkety yakkety main
+```
+
+## Ubuntu Zesty
+
+```
+deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-zesty zesty main
+```
+
 
 ## Debian Jessie
 
 ```
-deb http://www.a9f.eu/apt/apt-current-v1/debian jessie main
+deb https://dl.bintray.com/alanfranz/apt-current-v1-debian-jessie jessie main
 ```
 
 ## TODO
