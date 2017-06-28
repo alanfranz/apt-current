@@ -1,5 +1,10 @@
 #!/bin/bash -ex
 
+# this is a giant, all-or-nothing test. But it is comprehensive, and 
+# But since our logic is not that complicated, and I don't really want to
+# add tons of features to apt-current, I think it'll serve me fine
+# without a real need for refactoring into smaller, independent pieces.
+
 APT_CMD="$1"
 # zeroed, since just installed
 [ "$(cat /var/lib/apt-current/timestamp)" -eq 0 ]
