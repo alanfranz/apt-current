@@ -1,6 +1,6 @@
 distro:
     - ubuntu-trusty
     - ubuntu-xenial
-    - ubuntu-yakkety
     - ubuntu-zesty
     - debian-jessie
+    - debian-stretch
