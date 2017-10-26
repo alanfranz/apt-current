@@ -2,5 +2,6 @@ distro:
     - ubuntu-trusty
     - ubuntu-xenial
     - ubuntu-zesty
+    - ubuntu-artful
     - debian-jessie
     - debian-stretch
