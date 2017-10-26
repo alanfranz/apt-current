@@ -5,8 +5,8 @@ SED="$(command -v gsed || command -v sed)"
 [ -n "$2" ]
 cp -pr $1 $2
 cd $2
-SRC_COLON=$(tr "-" ":" <<<$1)
-DEST_COLON=$(tr "-" ":" <<<$2)
+SRC_COLON=$(tr "-" ":" <<<$1 | tr -d "/")
+DEST_COLON=$(tr "-" ":" <<<$2 | tr -d "/")
 SRC_SUFFIX=$(cut -d ":" -f 2 <<<$SRC_COLON)
 DEST_SUFFIX=$(cut -d ":" -f 2 <<<$DEST_COLON)
 ${FIND} -type f -exec ${SED} -e "s/${SRC_COLON}/${DEST_COLON}/g" -i {} \;
