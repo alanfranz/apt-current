@@ -48,7 +48,7 @@ commands, it will automatically perform an ```apt-get -y update``` (or ```apt -y
    invocation.
  * the configuration of ```apt-get```, as shown by ```apt-config dump```, has
    changed since last ```apt-get update``` invocation.
- * there are no apt lists at all
+ * you're trying to install something and there are no downloaded apt lists at all
 
 
 So, unless you need a package which has just been released, you'll never need
