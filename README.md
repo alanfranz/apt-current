@@ -70,8 +70,8 @@ such behaviour can be configured - see next section.
 
 # goodies
 
-There're two additional, optional functions as well: apt-current can delete downloaded deb cache after a command is run,
-and apt lists after a dist-upgrade/full-upgrade command is run.
+There're two additional, optional functions as well: apt-current can delete downloaded deb cache and apt lists after
+such modifications commands are run.
 
 Configuration can be found in ```/etc/apt-current.conf``` - see the default at [apt-current.conf](apt-current.conf)
 

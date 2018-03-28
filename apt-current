@@ -40,20 +40,8 @@ CURSOURCES_HASH="$(echo $SOURCES | xargs cat | md5sum | cut -f 1 -d ' ')"
 CURCONFIG="$(apt-config dump | md5sum | cut -f 1 -d ' ')" 
 [ "${CURCONFIG}" == "$(cat ${WORKDIR}/latest-config)" ] || PERFORM_UPDATE=true
 
-# downloaded lists are empty (maybe they have been cleaned), must update, UNLESS we're upgrading and lists were auto-cleaned after a full upgrade;
-# in that case, if MAXDELTA hasn't passed, we do nothing
-if [[ "${CMD}" == "dist-upgrade" || "${CMD}" == "full-upgrade" || "${CMD}" == "upgrade" ]]
-then
-	if [ "$(find /var/lib/apt/lists/ -maxdepth 1 -type f -not -name lock | wc -l)" -eq 0 ]
-	then
-		AUTO_CLEAN_LISTS_TIMESTAMP="$(cat ${WORKDIR}/auto_clean_lists_timestamp)" || AUTO_CLEAN_LISTS_TIMESTAMP=0
-		# if no lists and autoclean was performed less than MAXDELTA ago, do nothing and just exit. Otherwise, force update.
-		[ "$(( ${CURDATE} - ${AUTO_CLEAN_LISTS_TIMESTAMP} ))" -le "${MAXDELTA}" ] && exit 0
-		PERFORM_UPDATE=true
-	fi
-else
-	[ "$(find /var/lib/apt/lists/ -maxdepth 1 -type f -not -name lock | wc -l)" -eq 0 ] && PERFORM_UPDATE=true
-fi
+# downloaded lists are empty (maybe they have been cleaned), must update
+[ "$(find /var/lib/apt/lists/ -maxdepth 1 -type f -not -name lock | wc -l)" -eq 0 ] && PERFORM_UPDATE=true
 
 ${PERFORM_UPDATE} && apt -y update
 
@@ -61,5 +49,5 @@ set +e
 apt "$@"
 EXIT_CODE="$?"
 ${CLEANUP_DOWNLOADED_PACKAGES} && apt -y clean
-${CLEANUP_DOWNLOADED_LISTS} && [[ "${CMD}" == "dist-upgrade" || "${CMD}" == "full-upgrade" ]] && clean_lists && { date +%s > ${WORKDIR}/auto_clean_lists_timestamp ; }
+${CLEANUP_DOWNLOADED_LISTS} && clean_lists
 exit ${EXIT_CODE}

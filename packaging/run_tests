@@ -68,29 +68,12 @@ CACHED_COUNT=$(($(find /var/lib/apt/lists/ | wc -l) + $(find /var/lib/apt/lists/
 
 echo -e "CLEANUP_DOWNLOADED_LISTS=true\nMAXDELTA=0\n" > /etc/apt-current.conf
 ${APT_CMD} remove -y tcpdump
-
-# this should NOT clean the lists
-${APT_CMD} update
-CACHED_COUNT=$(($(find /var/lib/apt/lists/ | wc -l) + $(find /var/lib/apt/lists/partial/ | wc -l)))
-[ 14 -eq "${CACHED_COUNT}" ]
-
-# this SHOULD clean the lists
-${APT_CMD} -y dist-upgrade
+${APT_CMD} install -y tcpdump
 CACHED_COUNT=$(($(find /var/lib/apt/lists/ | wc -l) + $(find /var/lib/apt/lists/partial/ | wc -l)))
 [ 3 -eq "${CACHED_COUNT}" ]
 
-# this SHOULD NOT issue another update or any dist-upgrade, so it should finish very quickly
-BEFORE="$(date +%s)"
-${APT_CMD} -y dist-upgrade
-AFTER="$(date +%s)"
-ELAPSED="$(( $AFTER - $BEFORE ))"
-if [ "$ELAPSED" -gt 1 ]
-then
-	echo "too slow, probably auto cleanup is not working properly"
-	exit 1
-fi
-
 # now it should force the update since the dir is empty, and the install should succeed.
+${APT_CMD} remove -y tcpdump
 ${APT_CMD} install -y tcpdump
 
 ${APT_CMD} remove -y --purge tcpdump openssl wget
