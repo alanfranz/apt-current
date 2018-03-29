@@ -112,24 +112,24 @@ deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-trusty trusty main
 deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-xenial xenial main
 ```
 
-## Ubuntu Yakkety
+## Ubuntu Artful
 
 ```
-deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-yakkety yakkety main
+deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-artful artful main
 ```
-
-## Ubuntu Zesty
-
-```
-deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-zesty zesty main
-```
-
 
 ## Debian Jessie
 
 ```
 deb https://dl.bintray.com/alanfranz/apt-current-v1-debian-jessie jessie main
 ```
+
+## Debian Stretch
+
+```
+deb https://dl.bintray.com/alanfranz/apt-current-v1-debian-stretch stretch main
+```
+
 
 ## TODO
 
