@@ -48,7 +48,7 @@ commands, it will automatically perform an ```apt-get -y update``` (or ```apt -y
    invocation.
  * the configuration of ```apt-get```, as shown by ```apt-config dump```, has
    changed since last ```apt-get update``` invocation.
- * there are no apt lists at all
+ * you're trying to install something and there are no downloaded apt lists at all
 
 
 So, unless you need a package which has just been released, you'll never need
@@ -112,24 +112,24 @@ deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-trusty trusty main
 deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-xenial xenial main
 ```
 
-## Ubuntu Yakkety
+## Ubuntu Artful
 
 ```
-deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-yakkety yakkety main
+deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-artful artful main
 ```
-
-## Ubuntu Zesty
-
-```
-deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-zesty zesty main
-```
-
 
 ## Debian Jessie
 
 ```
 deb https://dl.bintray.com/alanfranz/apt-current-v1-debian-jessie jessie main
 ```
+
+## Debian Stretch
+
+```
+deb https://dl.bintray.com/alanfranz/apt-current-v1-debian-stretch stretch main
+```
+
 
 ## TODO
 
