@@ -1,6 +1,6 @@
 distro:
     - ubuntu-trusty
     - ubuntu-xenial
-    - ubuntu-artful
+    - ubuntu-bionic
     - debian-jessie
     - debian-stretch

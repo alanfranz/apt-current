@@ -63,14 +63,16 @@ CACHED_COUNT=$(($(find /var/cache/apt/archives/ -name "*.deb" | wc -l) + $(find 
 
 # try list cleaning
 ${APT_CMD} clean-lists
-CACHED_COUNT=$(($(find /var/lib/apt/lists/ | wc -l) + $(find /var/lib/apt/lists/partial/ | wc -l)))
-[ 3 -eq "${CACHED_COUNT}" ]
+CACHED_COUNT="$(find -type f /var/lib/apt/lists/ | wc -l)"
+[ 0 -eq "${CACHED_COUNT}" ]
 
 echo -e 'CLEANUP_DOWNLOADED_LISTS="true"\nMAXDELTA=10800\nCLEANUP_DOWNLOADED_PACKAGES="true"' > /etc/apt-current.conf
 ${APT_CMD} remove -y tcpdump
 ${APT_CMD} install -y tcpdump
-CACHED_COUNT=$(($(find /var/lib/apt/lists/ | wc -l) + $(find /var/lib/apt/lists/partial/ | wc -l)))
-[ 3 -eq "${CACHED_COUNT}" ]
+CACHED_COUNT="$(find -type f /var/lib/apt/lists/ | wc -l)"
+echo "GIDDAP"
+echo "$(find /var/lib/apt/lists)"
+[ 0 -eq "${CACHED_COUNT}" ]
 
 # now it should force the update since the dir is empty, and the install should succeed.
 ${APT_CMD} remove -y tcpdump
