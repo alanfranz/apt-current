@@ -1,6 +1,8 @@
 # WARNING:
 
-**APT REPOSITORIES HAVE CHANGED!** Check the new URLs down there.
+**BECAUSE OF TIME CONSTRAINTS, I WON'T BUILD apt-current FOR INTERMEDIATE UBUNTU RELEASES AGAIN.**
+
+Only Debian and Ubuntu LTS will be supported from now on.
 
 # apt-current: don't need an 'apt-get update' ever again! 
 
@@ -100,31 +102,18 @@ sudo apt-get update
 sudo apt-get -y install apt-current
 ```
 
-## Ubuntu Trusty
+
+## Ubuntu Trusty, Xenial, Bionic
+
+Replace ```bionic``` with your choice of ubuntu down there.
 
 ```
-deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-trusty trusty main
+deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-bionic bionic main
 ```
 
-## Ubuntu Xenial
+## Debian Jessie, Stretch
 
-```
-deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-xenial xenial main
-```
-
-## Ubuntu Artful
-
-```
-deb https://dl.bintray.com/alanfranz/apt-current-v1-ubuntu-artful artful main
-```
-
-## Debian Jessie
-
-```
-deb https://dl.bintray.com/alanfranz/apt-current-v1-debian-jessie jessie main
-```
-
-## Debian Stretch
+Replace ```stretch``` with your choice of debian down there.
 
 ```
 deb https://dl.bintray.com/alanfranz/apt-current-v1-debian-stretch stretch main
